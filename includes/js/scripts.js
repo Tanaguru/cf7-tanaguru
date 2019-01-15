@@ -403,8 +403,15 @@
 	wpcf7.notValidTip = function( target, message ) {
 		var $target = $( target );
 		$( '.wpcf7-not-valid-tip', $target ).remove();
-		$( '<span role="alert" class="wpcf7-not-valid-tip"></span>' )
+
+		/**
+		 * #cf7-tng-start
+		 * Removed 'role="alert"' from the span element.
+		 */
+		$( '<span class="wpcf7-not-valid-tip"></span>' )
 			.text( message ).appendTo( $target );
+
+		/* #cf7-tng-end */
 
 		if ( $target.is( '.use-floating-validation-tip *' ) ) {
 			var fadeOut = function( target ) {
