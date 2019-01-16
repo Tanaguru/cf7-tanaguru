@@ -333,7 +333,13 @@ class WPCF7_ContactForm {
 			) )
 		);
 
-		$html .= "\n" . $this->screen_reader_response() . "\n";
+		/**
+		 * #cf7-tng-start
+		 * Removed creation of div.screen-reader-response
+		 */
+		// $html .= "\n" . $this->screen_reader_response() . "\n";
+
+		/* #cf7-tng-end */
 
 		$url = wpcf7_get_request_uri();
 
@@ -524,52 +530,63 @@ class WPCF7_ContactForm {
 		return $output;
 	}
 
-	public function screen_reader_response() {
-		$class = 'screen-reader-response';
-		$role = '';
-		$content = '';
+	/**
+	 * #cf7-tng-start
+	 * 
+	 * Removed screen_reader_response function. 
+	 * The 'aria-describedby' attribute is planned to be used to
+	 * attach fields to their error message, leaving the use 
+	 * of this container irrelevant.
+	 */
 
-		if ( $this->is_posted() ) { // Post response output for non-AJAX
-			$role = 'alert';
+	// public function screen_reader_response() {
+	// 	$class = 'screen-reader-response';
+	// 	$role = '';
+	// 	$content = '';
 
-			$submission = WPCF7_Submission::get_instance();
+	// 	if ( $this->is_posted() ) { // Post response output for non-AJAX
+	// 		$role = 'alert';
 
-			if ( $response = $submission->get_response() ) {
-				$content = esc_html( $response );
-			}
+	// 		$submission = WPCF7_Submission::get_instance();
 
-			if ( $invalid_fields = $submission->get_invalid_fields() ) {
-				$content .= "\n" . '<ul>' . "\n";
+	// 		if ( $response = $submission->get_response() ) {
+	// 			$content = esc_html( $response );
+	// 		}
 
-				foreach ( (array) $invalid_fields as $name => $field ) {
-					if ( $field['idref'] ) {
-						$link = sprintf( '<a href="#%1$s">%2$s</a>',
-							esc_attr( $field['idref'] ),
-							esc_html( $field['reason'] ) );
-						$content .= sprintf( '<li>%s</li>', $link );
-					} else {
-						$content .= sprintf( '<li>%s</li>',
-							esc_html( $field['reason'] ) );
-					}
+	// 		if ( $invalid_fields = $submission->get_invalid_fields() ) {
+	// 			$content .= "\n" . '<ul>' . "\n";
 
-					$content .= "\n";
-				}
+	// 			foreach ( (array) $invalid_fields as $name => $field ) {
+	// 				if ( $field['idref'] ) {
+	// 					$link = sprintf( '<a href="#%1$s">%2$s</a>',
+	// 						esc_attr( $field['idref'] ),
+	// 						esc_html( $field['reason'] ) );
+	// 					$content .= sprintf( '<li>%s</li>', $link );
+	// 				} else {
+	// 					$content .= sprintf( '<li>%s</li>',
+	// 						esc_html( $field['reason'] ) );
+	// 				}
 
-				$content .= '</ul>' . "\n";
-			}
-		}
+	// 				$content .= "\n";
+	// 			}
 
-		$atts = array(
-			'class' => trim( $class ),
-			'role' => trim( $role ) );
+	// 			$content .= '</ul>' . "\n";
+	// 		}
+	// 	}
 
-		$atts = wpcf7_format_atts( $atts );
+	// 	$atts = array(
+	// 		'class' => trim( $class ),
+	// 		'role' => trim( $role ) );
 
-		$output = sprintf( '<div %1$s>%2$s</div>',
-			$atts, $content );
+	// 	$atts = wpcf7_format_atts( $atts );
 
-		return $output;
-	}
+	// 	$output = sprintf( '<div %1$s>%2$s</div>',
+	// 		$atts, $content );
+
+	// 	return $output;
+	// }
+
+	/* #cf7-tng-end */
 
 	public function validation_error( $name ) {
 		$error = '';

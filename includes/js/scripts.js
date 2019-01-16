@@ -314,28 +314,41 @@
 			$message.html( '' ).append( data.message ).slideDown( 'fast' );
 			$message.attr( 'role', 'alert' );
 
-			$( '.screen-reader-response', $form.closest( '.wpcf7' ) ).each( function() {
-				var $response = $( this );
-				$response.html( '' ).attr( 'role', '' ).append( data.message );
+			/**
+			 * #cf7-tng-start
+			 * 
+			 * .screen-reader-response does not exist anymore.
+			 * See contact-form.php, function screen_reader_response.
+			 * ** role="alert" should be added BEFORE the tag content, otherwise
+			 * assistive technologies do not render the content
+			 * ** focus cannot be given to div.screen-reader-response because
+			 * it is not focusable by nature and doesn't have a tabindex="-1"
+			 */
 
-				if ( data.invalidFields ) {
-					var $invalids = $( '<ul></ul>' );
+			// $( '.screen-reader-response', $form.closest( '.wpcf7' ) ).each( function() {
+			// 	var $response = $( this );
+			// 	$response.html( '' ).attr( 'role', '' ).append( data.message );
 
-					$.each( data.invalidFields, function( i, n ) {
-						if ( n.idref ) {
-							var $li = $( '<li></li>' ).append( $( '<a></a>' ).attr( 'href', '#' + n.idref ).append( n.message ) );
-						} else {
-							var $li = $( '<li></li>' ).append( n.message );
-						}
+			// 	if ( data.invalidFields ) {
+			// 		var $invalids = $( '<ul></ul>' );
 
-						$invalids.append( $li );
-					} );
+			// 		$.each( data.invalidFields, function( i, n ) {
+			// 			if ( n.idref ) {
+			// 				var $li = $( '<li></li>' ).append( $( '<a></a>' ).attr( 'href', '#' + n.idref ).append( n.message ) );
+			// 			} else {
+			// 				var $li = $( '<li></li>' ).append( n.message );
+			// 			}
 
-					$response.append( $invalids );
-				}
+			// 			$invalids.append( $li );
+			// 		} );
 
-				$response.attr( 'role', 'alert' ).focus();
-			} );
+			// 		$response.append( $invalids );
+			// 	}
+
+			// 	$response.attr( 'role', 'alert' ).focus();
+			// } );
+
+			/* #cf7-tng-end */
 		};
 
 		$.ajax( {
@@ -489,8 +502,16 @@
 	wpcf7.clearResponse = function( form ) {
 		var $form = $( form );
 		$form.removeClass( 'invalid spam sent failed' );
-		$form.siblings( '.screen-reader-response' ).html( '' ).attr( 'role', '' );
 
+		/**
+		 * #cf7-tng-start
+		 * Comment line because .screen-reader-repsonse does not exist anymore
+		 * See contact-form.php, function screen_reader_response
+		 */
+
+		// $form.siblings( '.screen-reader-response' ).html( '' ).attr( 'role', '' );
+
+		/* #cf7-tng-end */
 		$( '.wpcf7-not-valid-tip', $form ).remove();
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
 		$( '.wpcf7-form-control', $form ).removeClass( 'wpcf7-not-valid' );
