@@ -603,9 +603,14 @@ class WPCF7_ContactForm {
 			return $error;
 		}
 
+		/**
+		 * #cf7-tng-start
+		 * Removed role="alert"
+		 */
 		$error = sprintf(
 			'<span role="alert" class="wpcf7-not-valid-tip">%s</span>',
 			esc_html( $error ) );
+		/* #cf7-tng-end */
 
 		return apply_filters( 'wpcf7_validation_error', $error, $name, $this );
 	}
