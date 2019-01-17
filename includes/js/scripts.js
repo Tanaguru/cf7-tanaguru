@@ -526,9 +526,14 @@
 		// $form.siblings( '.screen-reader-response' ).html( '' ).attr( 'role', '' );
 
 		/* #cf7-tng-end */
+
 		$( '.wpcf7-not-valid-tip', $form ).remove();
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
 		$( '.wpcf7-form-control', $form ).removeClass( 'wpcf7-not-valid' );
+
+		/** #cf7-tng-start Remove aria-describedby if not needed */
+		$( '.wpcf7-form-control', $form ).removeAttr( 'aria-describedby' );
+		/* #cf7-tng-end */
 
 		$( '.wpcf7-response-output', $form )
 			.hide().empty().removeAttr( 'role' )
