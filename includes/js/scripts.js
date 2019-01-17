@@ -246,8 +246,18 @@
 					$.each( data.invalidFields, function( i, n ) {
 						$( n.into, $form ).each( function() {
 							wpcf7.notValidTip( this, n.message );
+
+							/**
+							 * #cf7-tng-start
+							 * Retrieve unique id from error message and add aria-describedby to input
+							 */
+							var messageID = $( 'span.wpcf7-not-valid-tip', this ).attr('id');
+
 							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
+							$( '.wpcf7-form-control', this ).attr( 'aria-describedby', messageID );
 							$( '[aria-invalid]', this ).attr( 'aria-invalid', 'true' );
+
+							/* #cf7-tng-end */
 						} );
 					} );
 
