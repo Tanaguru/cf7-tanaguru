@@ -311,8 +311,17 @@
 				} );
 			}
 
-			$message.html( '' ).append( data.message ).slideDown( 'fast' );
-			$message.attr( 'role', 'alert' );
+			/**
+			 * #cf7-tng-start
+			 * Add role="alert" before adding the error message,
+			 * otherwise ATs do not render the alert.
+			 */
+			$message.html( '' )
+					.attr( 'role', 'alert' )
+					.append( data.message )
+					.slideDown( 'fast' );
+
+			/* #cf7-tng-end */
 
 			/**
 			 * #cf7-tng-start
