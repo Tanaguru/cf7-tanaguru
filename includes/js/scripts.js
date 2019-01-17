@@ -246,8 +246,18 @@
 					$.each( data.invalidFields, function( i, n ) {
 						$( n.into, $form ).each( function() {
 							wpcf7.notValidTip( this, n.message );
+
+							/**
+							 * #cf7-tng-start
+							 * Retrieve unique id from error message and add aria-describedby to input
+							 */
+							var messageID = $( 'span.wpcf7-not-valid-tip', this ).attr('id');
+
 							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
+							$( '.wpcf7-form-control', this ).attr( 'aria-describedby', messageID );
 							$( '[aria-invalid]', this ).attr( 'aria-invalid', 'true' );
+
+							/* #cf7-tng-end */
 						} );
 					} );
 
@@ -429,9 +439,13 @@
 		/**
 		 * #cf7-tng-start
 		 * Removed 'role="alert"' from the span element.
+		 * Created errorID for random unique ID, and attach errorID to the error message.
 		 */
+
+		var errorID = 'cf7_tng_' + Math.random().toString(36).substr(2, 9);
+
 		$( '<span class="wpcf7-not-valid-tip"></span>' )
-			.text( message ).appendTo( $target );
+			.text( message ).attr( 'id', errorID ).appendTo( $target );
 
 		/* #cf7-tng-end */
 
@@ -521,9 +535,14 @@
 		// $form.siblings( '.screen-reader-response' ).html( '' ).attr( 'role', '' );
 
 		/* #cf7-tng-end */
+
 		$( '.wpcf7-not-valid-tip', $form ).remove();
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
 		$( '.wpcf7-form-control', $form ).removeClass( 'wpcf7-not-valid' );
+
+		/** #cf7-tng-start Remove aria-describedby if not needed */
+		$( '.wpcf7-form-control', $form ).removeAttr( 'aria-describedby' );
+		/* #cf7-tng-end */
 
 		$( '.wpcf7-response-output', $form )
 			.hide().empty().removeAttr( 'role' )
