@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Ce répertoire Github héberge la version de l'équipe Tanaguru du [Plugin WordPress Contact Form 7](https://wordpress.org/plugins/contact-form-7/) originalement crée par Takayuki Miyoshi.
+Ce répertoire Github héberge le [Plugin WordPress Contact Form 7](https://wordpress.org/plugins/contact-form-7/), crée par Takayuki Miyoshi et modifié par l'équipe Tanaguru.
 
 En janvier 2019, CF7 Tanaguru reste en cours d'évolution.
 
@@ -19,7 +19,7 @@ Les formulaires sont des composants importants et sensibles concernant l'accessi
 
 Pourtant, nous avons trouvé à nos formulaires une marge de progression concernant leur accessibilité.
 
-Ce plugin CF7 Tanaguru a pour but de corriger et améliorer le plugin Contact Form 7 original.
+Ce plugin CF7 Tanaguru a pour but de corriger et améliorer le plugin Contact Form 7 en partant du code source original.
 
 ## Comment contribuer ?
 
@@ -76,7 +76,7 @@ Forms are an important part when it comes to web accessibility. We have used mul
 
 Yet, we have found room for improvement in terms of web accessibility. 
 
-This Contact Form 7 Tanaguru plugin aims at correcting and improving the original plugin.
+This CF7 Tanaguru plugin aims at correcting and improving the Contact Form 7 plugin by modifying its original source code.
 
 ## How to make changes ?
 

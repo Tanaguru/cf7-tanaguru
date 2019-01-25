@@ -2,8 +2,8 @@
 /*
 Plugin Name: Contact Form 7 - Tanaguru
 Plugin URI: https://contactform7.com/
-Description: Just another contact form plugin. Simple but flexible. With accessibility fixes from the Tanaguru team.
-Author: Takayuki Miyoshi
+Description: Accessibility fixes from the Tanaguru team for the Contact Form 7 plugin by Takayuki Miyoshi.
+Author: Takayuki Miyoshi / Tanaguru
 Author URI: https://ideasilo.wordpress.com/
 Text Domain: contact-form-7
 Domain Path: /languages/
