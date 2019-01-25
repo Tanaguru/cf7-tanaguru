@@ -1,5 +1,68 @@
 # CF7 Tanaguru
 
+* [Accéder à la version française](#cf7-tng-fr)
+* [Go to English version](#cf7-tng-en)
+
+# <h1 id="cf7-tng-fr">CF7 Tanaguru ReadMe - Version française</h1>
+
+## Introduction
+
+Ce répertoire Github héberge la version de l'équipe Tanaguru du [Plugin WordPress Contact Form 7](https://wordpress.org/plugins/contact-form-7/) originalement crée par Takayuki Miyoshi.
+
+En janvier 2019, CF7 Tanaguru reste en cours d'évolution.
+
+## Qui sommes-nous ? Pourquoi ce plugin ?
+
+Tanaguru est une équipe française de professionnels du web ayant pour objectif de rendre le web plus accessible. Nous accompagnons nos clients dans l'intégration de l'accessibilité numérique dans leurs organisations, nous délivrons des formations et nous faisons des audits d'accessibilité entre autres. De plus, un de nos domaines d'action se trouve être le développement de sites accessibles pour nos clients.
+
+Les formulaires sont des composants importants et sensibles concernant l'accessibilité numérique. Plusieurs fois nous avons utilisé le plugin WordPress Contact Form 7 et Contact Form 7 Accessible Defaults pour créer des formulaires.
+
+Pourtant, nous avons trouvé à nos formulaires une marge de progression concernant leur accessibilité.
+
+Ce plugin CF7 Tanaguru a pour but de corriger et améliorer le plugin Contact Form 7 original.
+
+## Comment contribuer ?
+
+Nous essayons de rester au plus près des évolutions du plugin original, c'est pourquoi nous devons tenir à jour ce répertoire manuellement.
+
+### Utiliser des commentaires spécifiques
+Pour faciliter la fusion des modifications avec les mises à jour du plugin, nous documentons nos changements dans le code. Assuez-vous d'encadrer les portions de code que vous avez changé avec les blocs de commentaires suivants :
+
+```
+/**
+* #cf7-tng-start
+* Décrivez brièvement en anglais les changements effectués
+*/
+
+// code
+
+/* #cf7-tng-end */
+```
+
+### Commenter le code original
+
+Si jamais vous souhaitez retirer tout un morceau de code (par exemple, un bloc conditionnel (if/else), une fonction entière etc.), commentez le code original et dans le bloc de commentaire `#cf7-tng-start`, expliquez brièvement *pourquoi* ceci a été retiré, surtout si cela a un lien avec l'accessibilité.
+
+Par exemple, ceci pourrait ressembler à ce qui suit (cet exemple n'a pas été pris du plugin original) :
+
+```
+/**
+* #cf7-tng-start
+* Remove role="button" : if button is needed
+* use <button> tags instead of <a> tags.
+*/
+
+// if (link) {
+//    link.setAttribute('role', 'button')
+// }
+
+/* #cf7-tng-end */
+```
+
+***
+
+# <h1 id="cf7-tng-en">CF7 Tanaguru ReadMe - English version</h1>
+
 ## Introduction
 
 This repository is the Tanaguru team's version of the [WordPress Plugin Contact Form 7](https://wordpress.org/plugins/contact-form-7/) by Takayuki Miyoshi.
@@ -15,7 +78,7 @@ Yet, we have found room for improvement in terms of web accessibility.
 
 This Contact Form 7 Tanaguru plugin aims at correcting and improving the original plugin.
 
-## How to make changes
+## How to make changes ?
 
 We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository. 
 
@@ -25,7 +88,7 @@ To make it easier to merge changes with new updates, we document our changes in 
 ```
 /**
 * #cf7-tng-start
-* Describe quickly the changes made
+* Describe quickly in English the changes made
 */
 
 // code
@@ -46,8 +109,8 @@ For example, this could look like this (this example is not taken from the origi
 * use <button> tags instead of <a> tags.
 */
 
-// if (links) {
-//    links.setAttribute('role', 'button')
+// if (link) {
+//    link.setAttribute('role', 'button')
 // }
 
 /* #cf7-tng-end */
