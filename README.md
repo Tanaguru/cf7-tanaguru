@@ -25,6 +25,14 @@ Ce plugin CF7 Tanaguru a pour but de corriger et améliorer le plugin Contact Fo
 
 Nous essayons de rester au plus près des évolutions du plugin original, c'est pourquoi nous devons tenir à jour ce répertoire manuellement.
 
+### Précautions
+
+Si vous avez installé le plugin sur un site, respectez les consignes suivantes afin de faciliter la maintenance et la mise à jour de ce plugin personnalisé : 
+* Installez le plugin original Contact Form 7
+* Vérifier que le plugin original est désactivé. Si ce n'est pas le cas, désactivez-le.
+    * Ceci nous permet de voir dans le back office de WordPress lorsqu'une mise à jour est disponible pour le plugin original.
+* Les formulaires de contact doivent bien être créés lorsque CF7 Tanaguru est activé **et** Contact Form 7 est désactivé. Les formulaires seront alors reliés à CF7 Tanaguru (c'est-à-dire que si on désactive CF7 Tanaguru, il n'y aura plus de formulaires).
+
 ### Utiliser des commentaires spécifiques
 Pour faciliter la fusion des modifications avec les mises à jour du plugin, nous documentons nos changements dans le code. Assuez-vous d'encadrer les portions de code que vous avez changé avec les blocs de commentaires suivants :
 
@@ -81,6 +89,14 @@ This CF7 Tanaguru plugin aims at correcting and improving the Contact Form 7 plu
 ## How to make changes ?
 
 We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository. 
+
+### Cautions
+
+If you have installed the plugin on a website, follow these instructions to make it easier to maintain and update this custom plugin: 
+* Install the original Contact Form 7 plugin
+* Check that the original plugin is disabled. If not, disable it.
+    * This allows us to see in the WordPress back office when an update is available for the original plugin.
+* Contact forms must be created when CF7 Tanaguru is activated **and** Contact Form 7 is disabled. The forms will then be linked to CF7 Tanaguru (i.e. if you disable CF7 Tanaguru, there will be no more forms).
 
 ### Using specific comment tags
 To make it easier to merge changes with new updates, we document our changes in the code. Make sure to wrap the section of code you've changed with the following comment tags :
