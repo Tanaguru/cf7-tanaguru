@@ -33,6 +33,12 @@ Si vous avez installé le plugin sur un site, respectez les consignes suivantes 
     * Ceci nous permet de voir dans le back office de WordPress lorsqu'une mise à jour est disponible pour le plugin original.
 * Les formulaires de contact doivent bien être créés lorsque CF7 Tanaguru est activé **et** Contact Form 7 est désactivé. Les formulaires seront alors reliés à CF7 Tanaguru (c'est-à-dire que si on désactive CF7 Tanaguru, il n'y aura plus de formulaires).
 
+### Une branche par correctif
+
+Créez une branche par correctif nommée selon le modèle suivant : 
+`[version]_intitule-du-correctif`.
+* Par exemple : `5-1-1_error-role-alert`
+
 ### Utiliser des commentaires spécifiques
 Pour faciliter la fusion des modifications avec les mises à jour du plugin, nous documentons nos changements dans le code. Assuez-vous d'encadrer les portions de code que vous avez changé avec les blocs de commentaires suivants :
 
@@ -66,6 +72,17 @@ Par exemple, ceci pourrait ressembler à ce qui suit (cet exemple n'a pas été 
 
 /* #cf7-tng-end */
 ```
+
+## Comment mettre à jour le plugin CF7 Tanguru
+
+Suivez les instructions suivantes pour mettre à jour le plugin CF7 Tanaguru :
+* Vérifiez que la branche `master` est bien à jour
+* Créez une nouvelle branche, à partir de la branche master, appelée `update_[version]` en remplaçant "version" par le numéro de la nouvelle version. 
+    * Par exemple : `update_5-1-2`
+* Mettre sur cette branche la nouvelle version du plugin original Contact Form 7
+* Régler les conflits et reporter les modifications de CF7 Tanaguru dans la nouvelle version de Contact Form 7
+* Poussez sur la branche `update_[version]` vos modifications
+* Fusionner la branche `update_[version]` (avec pull request) avec la branche `master` pour que celle-ci soit à jour.
 
 ***
 
