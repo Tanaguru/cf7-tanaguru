@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: Contact Form 7 - Tanaguru
+Plugin Name: Contact Form 7
 Plugin URI: https://contactform7.com/
-Description: Accessibility fixes from the Tanaguru team for the Contact Form 7 plugin by Takayuki Miyoshi.
-Author: Takayuki Miyoshi / Tanaguru
+Description: Just another contact form plugin. Simple but flexible.
+Author: Takayuki Miyoshi
 Author URI: https://ideasilo.wordpress.com/
 Text Domain: contact-form-7
 Domain Path: /languages/
-Version: 5.1.6
+Version: 5.1.9
 */
 
-define( 'WPCF7_VERSION', '5.1.6' );
+define( 'WPCF7_VERSION', '5.1.9' );
 
 define( 'WPCF7_REQUIRED_WP_VERSION', '4.9' );
 

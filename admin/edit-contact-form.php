@@ -194,16 +194,16 @@ if ( $post ) :
 			),
 			wpcf7_link(
 				__( 'https://contactform7.com/docs/', 'contact-form-7' ),
-				__( 'Docs', 'contact-form-7' )
+				__( 'docs', 'contact-form-7' )
 			)
 		); ?></li>
 		<li><?php echo wpcf7_link(
 			__( 'https://wordpress.org/support/plugin/contact-form-7/', 'contact-form-7' ),
-			__( 'Support Forums', 'contact-form-7' )
+			__( 'Support forums', 'contact-form-7' )
 		); ?></li>
 		<li><?php echo wpcf7_link(
 			__( 'https://contactform7.com/custom-development/', 'contact-form-7' ),
-			__( 'Professional Services', 'contact-form-7' )
+			__( 'Professional services', 'contact-form-7' )
 		); ?></li>
 	</ol>
 </div>

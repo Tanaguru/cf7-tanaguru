@@ -136,42 +136,7 @@
 		}
 
 		// Character Count
-		$( '.wpcf7-character-count', $form ).each( function() {
-			var $count = $( this );
-			var name = $count.attr( 'data-target-name' );
-			var down = $count.hasClass( 'down' );
-			var starting = parseInt( $count.attr( 'data-starting-value' ), 10 );
-			var maximum = parseInt( $count.attr( 'data-maximum-value' ), 10 );
-			var minimum = parseInt( $count.attr( 'data-minimum-value' ), 10 );
-
-			var updateCount = function( target ) {
-				var $target = $( target );
-				var length = $target.val().length;
-				var count = down ? starting - length : length;
-				$count.attr( 'data-current-value', count );
-				$count.text( count );
-
-				if ( maximum && maximum < length ) {
-					$count.addClass( 'too-long' );
-				} else {
-					$count.removeClass( 'too-long' );
-				}
-
-				if ( minimum && length < minimum ) {
-					$count.addClass( 'too-short' );
-				} else {
-					$count.removeClass( 'too-short' );
-				}
-			};
-
-			$( ':input[name="' + name + '"]', $form ).each( function() {
-				updateCount( this );
-
-				$( this ).keyup( function() {
-					updateCount( this );
-				} );
-			} );
-		} );
+		wpcf7.resetCounter( $form );
 
 		// URL Input Correction
 		$form.on( 'change', '.wpcf7-validates-as-url', function() {
@@ -313,6 +278,7 @@
 				} );
 
 				wpcf7.toggleSubmit( $form );
+				wpcf7.resetCounter( $form );
 			}
 
 			if ( ! wpcf7.supportHtml5.placeholder ) {
@@ -335,7 +301,7 @@
 
 			/**
 			 * #cf7-tng-start
-			 * 
+			 *
 			 * .screen-reader-response does not exist anymore.
 			 * See contact-form.php, function screen_reader_response.
 			 * ** role="alert" should be added BEFORE the tag content, otherwise
@@ -432,13 +398,54 @@
 		} );
 	};
 
+	wpcf7.resetCounter = function( form ) {
+		var $form = $( form );
+
+		$( '.wpcf7-character-count', $form ).each( function() {
+			var $count = $( this );
+			var name = $count.attr( 'data-target-name' );
+			var down = $count.hasClass( 'down' );
+			var starting = parseInt( $count.attr( 'data-starting-value' ), 10 );
+			var maximum = parseInt( $count.attr( 'data-maximum-value' ), 10 );
+			var minimum = parseInt( $count.attr( 'data-minimum-value' ), 10 );
+
+			var updateCount = function( target ) {
+				var $target = $( target );
+				var length = $target.val().length;
+				var count = down ? starting - length : length;
+				$count.attr( 'data-current-value', count );
+				$count.text( count );
+
+				if ( maximum && maximum < length ) {
+					$count.addClass( 'too-long' );
+				} else {
+					$count.removeClass( 'too-long' );
+				}
+
+				if ( minimum && length < minimum ) {
+					$count.addClass( 'too-short' );
+				} else {
+					$count.removeClass( 'too-short' );
+				}
+			};
+
+			$( ':input[name="' + name + '"]', $form ).each( function() {
+				updateCount( this );
+
+				$( this ).keyup( function() {
+					updateCount( this );
+				} );
+			} );
+		} );
+	};
+
 	wpcf7.notValidTip = function( target, message ) {
 		var $target = $( target );
 		$( '.wpcf7-not-valid-tip', $target ).remove();
 
 		/**
 		 * #cf7-tng-start
-		 * Removed 'role="alert"' from the span element.
+		 * Removed `role="alert" aria-hidden="true"` from the span element.
 		 * Created errorID for random unique ID, and attach errorID to the error message.
 		 */
 
@@ -446,6 +453,11 @@
 
 		$( '<span class="wpcf7-not-valid-tip"></span>' )
 			.text( message ).attr( 'id', errorID ).appendTo( $target );
+
+		$( '<span></span>' ).attr( {
+			'class': 'wpcf7-not-valid-tip',
+			'id': errorID,
+		} ).text( message ).appendTo( $target );
 
 		/* #cf7-tng-end */
 
