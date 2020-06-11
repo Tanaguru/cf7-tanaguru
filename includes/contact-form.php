@@ -521,15 +521,18 @@ class WPCF7_ContactForm {
 		$atts = array(
 			'class' => trim( $class ),
 			'role' => trim( $role ),
+			'aria-hidden' => 'true',
 		);
 
 		$atts = wpcf7_format_atts( $atts );
 
 		$output = sprintf( '<div %1$s>%2$s</div>',
-			$atts, esc_html( $content ) );
+			$atts, esc_html( $content )
+		);
 
 		$output = apply_filters( 'wpcf7_form_response_output',
-			$output, $class, $content, $this, $status );
+			$output, $class, $content, $this, $status
+		);
 
 		$this->responses_count += 1;
 
@@ -538,10 +541,10 @@ class WPCF7_ContactForm {
 
 	/**
 	 * #cf7-tng-start
-	 * 
-	 * Removed screen_reader_response function. 
+	 *
+	 * Removed screen_reader_response function.
 	 * The 'aria-describedby' attribute is planned to be used to
-	 * attach fields to their error message, leaving the use 
+	 * attach fields to their error message, leaving the use
 	 * of this container irrelevant.
 	 */
 
@@ -570,7 +573,8 @@ class WPCF7_ContactForm {
 	// 					$content .= sprintf( '<li>%s</li>', $link );
 	// 				} else {
 	// 					$content .= sprintf( '<li>%s</li>',
-	// 						esc_html( $field['reason'] ) );
+	// 						esc_html( $field['reason'] )
+	//					);
 	// 				}
 
 	// 				$content .= "\n";
@@ -582,12 +586,15 @@ class WPCF7_ContactForm {
 
 	// 	$atts = array(
 	// 		'class' => trim( $class ),
-	// 		'role' => trim( $role ) );
+	// 		'role' => trim( $role ),
+	//		'aria-live' => 'polite',
+	//	);
 
 	// 	$atts = wpcf7_format_atts( $atts );
 
 	// 	$output = sprintf( '<div %1$s>%2$s</div>',
-	// 		$atts, $content );
+	// 		$atts, $content
+	//	);
 
 	// 	return $output;
 	// }
@@ -611,12 +618,20 @@ class WPCF7_ContactForm {
 
 		/**
 		 * #cf7-tng-start
-		 * Removed role="alert"
+		 * Comment `role="alert" aria-hidden="true"`
 		 */
-		$error = sprintf(
-			'<span role="alert" class="wpcf7-not-valid-tip">%s</span>',
-			esc_html( $error ) );
+		$atts = array(
+			'class' => 'wpcf7-not-valid-tip',
+			// 'role' => 'alert',
+			// 'aria-hidden' => 'true',
+		);
 		/* #cf7-tng-end */
+
+		$error = sprintf(
+			'<span %1$s>%2$s</span>',
+			wpcf7_format_atts( $atts ),
+			esc_html( $error )
+		);
 
 		return apply_filters( 'wpcf7_validation_error', $error, $name, $this );
 	}
