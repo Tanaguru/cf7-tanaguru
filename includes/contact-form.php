@@ -518,11 +518,16 @@ class WPCF7_ContactForm {
 			$class .= ' wpcf7-display-none';
 		}
 
+		/**
+		 * #cf7-tng-start
+		 * Comment `aria-hidden="true"` attribute
+		 */
 		$atts = array(
 			'class' => trim( $class ),
 			'role' => trim( $role ),
-			'aria-hidden' => 'true',
+			// 'aria-hidden' => 'true',
 		);
+		/* #cf7-tng-end */
 
 		$atts = wpcf7_format_atts( $atts );
 
