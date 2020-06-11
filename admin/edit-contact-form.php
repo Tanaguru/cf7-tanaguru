@@ -187,7 +187,7 @@ if ( $post ) :
 	<ol>
 		<li><?php echo sprintf(
 			/* translators: 1: FAQ, 2: Docs ("FAQ & Docs") */
-			__( '%1$s &#38; %2$s', 'contact-form-7' ),
+			__( '%1$s and %2$s', 'contact-form-7' ),
 			wpcf7_link(
 				__( 'https://contactform7.com/faq/', 'contact-form-7' ),
 				__( 'FAQ', 'contact-form-7' )

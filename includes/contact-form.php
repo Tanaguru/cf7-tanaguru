@@ -618,10 +618,12 @@ class WPCF7_ContactForm {
 
 		/**
 		 * #cf7-tng-start
-		 * Removed `role="alert" aria-hidden="true"`
+		 * Comment `role="alert" aria-hidden="true"`
 		 */
 		$atts = array(
 			'class' => 'wpcf7-not-valid-tip',
+			// 'role' => 'alert',
+			// 'aria-hidden' => 'true',
 		);
 		/* #cf7-tng-end */
 

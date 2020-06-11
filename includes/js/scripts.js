@@ -445,17 +445,16 @@
 
 		/**
 		 * #cf7-tng-start
-		 * Removed `role="alert" aria-hidden="true"` from the span element.
+		 * Comment `role="alert" aria-hidden="true"` from the span element.
 		 * Created errorID for random unique ID, and attach errorID to the error message.
 		 */
 
 		var errorID = 'cf7_tng_' + Math.random().toString(36).substr(2, 9);
 
-		$( '<span class="wpcf7-not-valid-tip"></span>' )
-			.text( message ).attr( 'id', errorID ).appendTo( $target );
-
 		$( '<span></span>' ).attr( {
 			'class': 'wpcf7-not-valid-tip',
+			// 'role': 'alert',
+			// 'aria-hidden': 'true',
 			'id': errorID,
 		} ).text( message ).appendTo( $target );
 
