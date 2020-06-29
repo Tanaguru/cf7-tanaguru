@@ -484,7 +484,12 @@ class WPCF7_ContactForm {
 		$content = '';
 
 		if ( $this->is_posted() ) { // Post response output for non-AJAX
-			$role = 'alert';
+			/**
+		 	 * #cf7-tng-start
+			 * Comment the $role variable because we don't need it anymore (focus is moved on the message on submit)
+			 */
+			// $role = 'alert';
+			/* #cf7-tng-end */
 
 			$submission = WPCF7_Submission::get_instance();
 			$status = $submission->get_status();
@@ -520,20 +525,25 @@ class WPCF7_ContactForm {
 
 		/**
 		 * #cf7-tng-start
-		 * Comment `aria-hidden="true"` attribute
+		 * Comment `aria-hidden="true"` attribute and `role` attribute because we move focus on the message on submit
 		 */
 		$atts = array(
 			'class' => trim( $class ),
-			'role' => trim( $role ),
+			// 'role' => trim( $role ),
 			// 'aria-hidden' => 'true',
 		);
 		/* #cf7-tng-end */
 
 		$atts = wpcf7_format_atts( $atts );
 
-		$output = sprintf( '<div %1$s>%2$s</div>',
+		/**
+		 * #cf7-tng-start
+		 * Add tabindex="-1" attribute to be able to move focus on the message on submit
+		 */
+		$output = sprintf( '<div %1$s tabindex="-1">%2$s</div>',
 			$atts, esc_html( $content )
 		);
+		/* #cf7-tng-end */
 
 		$output = apply_filters( 'wpcf7_form_response_output',
 			$output, $class, $content, $this, $status
@@ -623,7 +633,7 @@ class WPCF7_ContactForm {
 
 		/**
 		 * #cf7-tng-start
-		 * Comment `role="alert" aria-hidden="true"`
+		 * Comment `role="alert" aria-hidden="true"` because each individual message is attached to its field with aria-describedby
 		 */
 		$atts = array(
 			'class' => 'wpcf7-not-valid-tip',
