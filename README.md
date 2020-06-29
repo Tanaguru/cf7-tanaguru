@@ -56,6 +56,14 @@ Moreover, these individual messages are visually displayed and inaccessible to s
 
 A `size` attribute is used on form fields but it's not compliant with accessibility rules. CSS must be used instead in order to fix field size.
 
+**What we have done:** remove the `size` attribute from fields.
+
+### 4. Add a `for` attribute on the `<label>` of the acceptance checkbox
+
+The acceptance checkbox (for GDPR) is a dedicated field in the contact form administration. In the code, you can't access to the `<label>` element so you can't attached the label to its field properly.
+
+**What we have done:** add a `for` attribute on the acceptance `<label>` only if the ID is filled in the contact form administration. Its value is the ID of the field, of course.
+
 ## How to contribute?
 
 We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository.
