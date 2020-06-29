@@ -116,7 +116,7 @@ For example, this could look like this (this example is not taken from the origi
 /* #cf7-tng-end */
 ```
 
-## How to update CF7 Tanguru plugin from Contact Form 7
+## How to update CF7 Tanaguru plugin from Contact Form 7
 
 Follow these instructions to update the CF7 Tanaguru plugin from the official Contact Form 7:
 
