@@ -113,10 +113,10 @@ For example, this could look like this (this example is not taken from the origi
 Follow these instructions to update the CF7 Tanaguru plugin from the official Contact Form 7:
 
 1. Check that the `master` branch is up to date on your computer;
-1. Create a new branch, from the `master` branch, naming `update_[version]` replacing “version” by the new version number of Contact Form 7. Example : `update_5-1-2`
+1. Create a new branch, from the `master` branch, naming `update_[version]` replacing “version” by the new version number of Contact Form 7. Example : `update_5-1-2`;
 1. Put the new version from the official Contact Form 7 on this branch;
 1. Before committing this, compare what you are about to commit and report all CF7 Tanaguru modifications on the new version of Contact Form 7;
 1. When everything seems to be OK, commit and push your modifications on your branch `update_[version]`;
-1. Go on Github and make a Pull Request to merge your branch `update_[version]` on `master`. Read your Pull Request carefully. If you can, request a review from a colleague to benefit from a fresh eyes looking.
-1. Approve the Pull Request.
+1. Go on Github and make a Pull Request to merge your branch `update_[version]` on `master`. Read your Pull Request carefully. If you can, request a review from a colleague to benefit from a fresh eyes looking;
+1. Approve the Pull Request;
 1. Make a Github Release.
