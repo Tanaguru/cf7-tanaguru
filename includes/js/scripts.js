@@ -214,14 +214,13 @@
 
 							/**
 							 * #cf7-tng-start
-							 * Retrieve unique id from error message and add aria-describedby to input
+							 * Retrieve unique ID from error message and add aria-describedby to its field
 							 */
 							var messageID = $( 'span.wpcf7-not-valid-tip', this ).attr('id');
 
 							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
 							$( '.wpcf7-form-control', this ).attr( 'aria-describedby', messageID );
 							$( '[aria-invalid]', this ).attr( 'aria-invalid', 'true' );
-
 							/* #cf7-tng-end */
 						} );
 					} );
@@ -287,16 +286,13 @@
 				} );
 			}
 
+
+			$message.html( '' ).append( data.message ).slideDown( 'fast' );
 			/**
 			 * #cf7-tng-start
-			 * Add role="alert" before adding the error message,
-			 * otherwise ATs do not render the alert.
+			 * Remove role="alert" because we move focus on the message instead
 			 */
-			$message.html( '' )
-					.attr( 'role', 'alert' )
-					.append( data.message )
-					.slideDown( 'fast' );
-
+			// $message.attr( 'role', 'alert' );
 			/* #cf7-tng-end */
 
 			/**
@@ -304,12 +300,7 @@
 			 *
 			 * .screen-reader-response does not exist anymore.
 			 * See contact-form.php, function screen_reader_response.
-			 * ** role="alert" should be added BEFORE the tag content, otherwise
-			 * assistive technologies do not render the content
-			 * ** focus cannot be given to div.screen-reader-response because
-			 * it is not focusable by nature and doesn't have a tabindex="-1"
 			 */
-
 			// $( '.screen-reader-response', $form.closest( '.wpcf7' ) ).each( function() {
 			// 	var $response = $( this );
 			// 	$response.html( '' ).attr( 'role', '' ).append( data.message );
@@ -347,9 +338,23 @@
 		} ).done( function( data, status, xhr ) {
 			ajaxSuccess( data, status, xhr, $form );
 			$( '.ajax-loader', $form ).removeClass( 'is-active' );
+			/**
+			 * #cf7-tng-start
+			 *
+			 * Move focus on confirmation message after submit
+			 */
+			$( '.wpcf7-response-output', $form ).focus();
+			/* #cf7-tng-end */
 		} ).fail( function( xhr, status, error ) {
 			var $e = $( '<div class="ajax-error"></div>' ).text( error.message );
 			$form.after( $e );
+			/**
+			 * #cf7-tng-start
+			 *
+			 * Move focus on error message after submit
+			 */
+			$( '.wpcf7-response-output', $form ).focus();
+			/* #cf7-tng-end */
 		} );
 	};
 
@@ -551,7 +556,10 @@
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
 		$( '.wpcf7-form-control', $form ).removeClass( 'wpcf7-not-valid' );
 
-		/** #cf7-tng-start Remove aria-describedby if not needed */
+		/**
+		 * #cf7-tng-start
+		 * Remove aria-describedby if not needed
+		 */
 		$( '.wpcf7-form-control', $form ).removeAttr( 'aria-describedby' );
 		/* #cf7-tng-end */
 

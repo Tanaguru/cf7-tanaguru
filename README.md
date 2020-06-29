@@ -1,128 +1,87 @@
 # CF7 Tanaguru
 
-* [Accéder à la version française](#cf7-tng-fr)
-* [Go to English version](#cf7-tng-en)
-
-# <h1 id="cf7-tng-fr">CF7 Tanaguru ReadMe - Version française</h1>
+A fork of the Contact Form 7 WordPress plugin to fix accessibility problems
 
 ## Introduction
 
-Ce répertoire Github héberge le [Plugin WordPress Contact Form 7](https://wordpress.org/plugins/contact-form-7/), crée par Takayuki Miyoshi et modifié par l'équipe Tanaguru.
+This repository is the Tanaguru team's version of the WordPress Plugin [Contact Form 7](https://wordpress.org/plugins/contact-form-7/) by Takayuki Miyoshi and modified by Tanaguru team.
 
-En janvier 2019, CF7 Tanaguru reste en cours d'évolution.
+CF7 Tanaguru is still in progress as of today (June 2020).
 
-## Qui sommes-nous ? Pourquoi ce plugin ?
+## Who are we? Why this plugin?
 
-Tanaguru est une équipe française de professionnels du web ayant pour objectif de rendre le web plus accessible. Nous accompagnons nos clients dans l'intégration de l'accessibilité numérique dans leurs organisations, nous délivrons des formations et nous faisons des audits d'accessibilité entre autres. De plus, un de nos domaines d'action se trouve être le développement de sites accessibles pour nos clients.
+Tanaguru is a French-based team of web professionals focused on making the web more accessible. We support our clients' implementation of web accessibility, provide training courses and perform accessibility audits among other things. Moreover, one of our field of actions is to develop accessible websites for our clients.
 
-Les formulaires sont des composants importants et sensibles concernant l'accessibilité numérique. Plusieurs fois nous avons utilisé le plugin WordPress Contact Form 7 et Contact Form 7 Accessible Defaults pour créer des formulaires.
+Forms are an important part when it comes to web accessibility. We have used multiple times the WordPress “Contact Form 7” and “Contact Form 7 Accessible Defaults” to create contact forms.
 
-Pourtant, nous avons trouvé à nos formulaires une marge de progression concernant leur accessibilité.
-
-Ce plugin CF7 Tanaguru a pour but de corriger et améliorer le plugin Contact Form 7 en partant du code source original.
-
-## Comment contribuer ?
-
-Nous essayons de rester au plus près des évolutions du plugin original, c'est pourquoi nous devons tenir à jour ce répertoire manuellement.
-
-### Précautions
-
-Si vous avez installé le plugin sur un site, respectez les consignes suivantes afin de faciliter la maintenance et la mise à jour de ce plugin personnalisé : 
-* Installez le plugin original Contact Form 7
-* Vérifier que le plugin original est désactivé. Si ce n'est pas le cas, désactivez-le.
-    * Ceci nous permet de voir dans le back office de WordPress lorsqu'une mise à jour est disponible pour le plugin original.
-* Les formulaires de contact doivent bien être créés lorsque CF7 Tanaguru est activé **et** Contact Form 7 est désactivé. Les formulaires seront alors reliés à CF7 Tanaguru (c'est-à-dire que si on désactive CF7 Tanaguru, il n'y aura plus de formulaires).
-
-### Une branche par correctif
-
-Créez une branche par correctif nommée selon le modèle suivant : 
-`[version]_intitule-du-correctif`.
-* Par exemple : `5-1-1_error-role-alert`
-
-### Utiliser des commentaires spécifiques
-Pour faciliter la fusion des modifications avec les mises à jour du plugin, nous documentons nos changements dans le code. Assuez-vous d'encadrer les portions de code que vous avez changé avec les blocs de commentaires suivants :
-
-```
-/**
-* #cf7-tng-start
-* Décrivez brièvement en anglais les changements effectués
-*/
-
-// code
-
-/* #cf7-tng-end */
-```
-
-### Commenter le code original
-
-Si jamais vous souhaitez retirer tout un morceau de code (par exemple, un bloc conditionnel (if/else), une fonction entière etc.), commentez le code original et dans le bloc de commentaire `#cf7-tng-start`, expliquez brièvement *pourquoi* ceci a été retiré, surtout si cela a un lien avec l'accessibilité.
-
-Par exemple, ceci pourrait ressembler à ce qui suit (cet exemple n'a pas été pris du plugin original) :
-
-```
-/**
-* #cf7-tng-start
-* Remove role="button" : if button is needed
-* use <button> tags instead of <a> tags.
-*/
-
-// if (link) {
-//    link.setAttribute('role', 'button')
-// }
-
-/* #cf7-tng-end */
-```
-
-## Comment mettre à jour le plugin CF7 Tanguru
-
-Suivez les instructions suivantes pour mettre à jour le plugin CF7 Tanaguru :
-* Vérifiez que la branche `master` est bien à jour
-* Créez une nouvelle branche, à partir de la branche master, appelée `update_[version]` en remplaçant "version" par le numéro de la nouvelle version. 
-    * Par exemple : `update_5-1-2`
-* Mettre sur cette branche la nouvelle version du plugin original Contact Form 7
-* Régler les conflits et reporter les modifications de CF7 Tanaguru dans la nouvelle version de Contact Form 7
-* Poussez sur la branche `update_[version]` vos modifications
-* Fusionner la branche `update_[version]` (avec pull request) avec la branche `master` pour que celle-ci soit à jour.
-
-***
-
-# <h1 id="cf7-tng-en">CF7 Tanaguru ReadMe - English version</h1>
-
-## Introduction
-
-This repository is the Tanaguru team's version of the [WordPress Plugin Contact Form 7](https://wordpress.org/plugins/contact-form-7/) by Takayuki Miyoshi.
-
-CF7 Tanaguru is still in progress as of today (January 2019).
-
-## Who are we ? Why this plugin ?
-Tanaguru is a French-based team of web professionals focused on making the web more accessible. We support our clients' implementation of web accessibility, provide training courses and perform accessibility audits among other things. What's more, one of our field of actions is to develop accessible websites for our clients. 
-
-Forms are an important part when it comes to web accessibility. We have used multiple times the WordPress Contact Form 7 and Contact Form 7 Accessible Defaults to create contact forms. 
-
-Yet, we have found room for improvement in terms of web accessibility. 
+Yet, we have found room for improvement in terms of web accessibility.
 
 This CF7 Tanaguru plugin aims at correcting and improving the Contact Form 7 plugin by modifying its original source code.
 
-## How to make changes ?
+## List of the accessibility fixes
 
-We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository. 
+### 1. Main error message or success message handling
+
+In the original Contact Form 7, when there are errors on submitting the form, there are two main message:
+
+- one is visually displayed and inaccessible to screen readers (it's a sentence to tell there are errors): that's a problem because people using screen readers are not all blind people;
+- the other is visually hidden and only accessible to screen reader users. This message contains links to anchors in the form. That's a problem because links are accessible through keyboard but not visible at all!
+
+Both main error message or success message have a `role="alert"` attribute but this one is not ready in DOM before dynamically adding the message inside it. So, some screen readers may not read the message.
+
+The main message should be at the top of the form to be logical.
+
+**What we have done:** we decided to move focus on the main message (that must be at the top of the form) in order to be sure that the message will be read by screen readers and so, users are at the right place to go again inside the form to fix their errors.
+
+1. Move the `[response]` short code in our form administration at the top of the form (before writing fields) (**don't forget to do it as a developer**);
+1. Remove the `role="alert"` and `aria-hidden="true"` attribute from the main message container that is visible;
+1. Add a `tabindex="-1"`attribute on the main message container;
+1. Remove the visually hidden message (the one with links inside);
+1. On submit, move focus on the main message (error or success).
+
+### 2. Attach individual error message to its field
+
+In the original Contact Form 7, when there are errors on submitting the form, each field in error has a dedicated individual error message below it. These error messages have a `role="alert"` attribute and are not attached to their field so it remains difficult for blind users to access to these messages.
+
+Moreover, these individual messages are visually displayed and inaccessible to screen readers: that's a problem because people using screen readers are not all blind people.
+
+**What we have done:**
+
+1. Remove the `role="alert"` and `aria-hidden="true"` attributes from these messages;
+1. Add a unique ID on each individual message;
+1. Add an `aria-describedby` attribute on fields which are in error;
+1. Attach the `aria-describedby` attribute with the ID of the error message.
+
+### 3. Remove `size` attribute on form fields
+
+A `size` attribute is used on form fields but it's not compliant with accessibility rules. CSS must be used instead in order to fix field size.
+
+## How to contribute?
+
+We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository.
 
 ### Cautions
 
-If you have installed the plugin on a website, follow these instructions to make it easier to maintain and update this custom plugin: 
-* Install the original Contact Form 7 plugin
-* Check that the original plugin is disabled. If not, disable it.
-    * This allows us to see in the WordPress back office when an update is available for the original plugin.
-* Contact forms must be created when CF7 Tanaguru is activated **and** Contact Form 7 is disabled. The forms will then be linked to CF7 Tanaguru (i.e. if you disable CF7 Tanaguru, there will be no more forms).
+If you have installed the plugin on a website, follow these instructions to make it easier to maintain and update this custom plugin:
+
+* Install the original Contact Form 7 plugin;
+* Check that the original plugin is disabled. If not, disable it. This allows us to see in the WordPress back-office when an update is available for the original plugin.
+
+### One branch = one fix
+
+Create a Git branch by fix you want to do. Name this branch following this model: `[version]_name-of-the-fix`.
+
+Example : `5-1-1_error-role-alert`
 
 ### Using specific comment tags
+
 To make it easier to merge changes with new updates, we document our changes in the code. Make sure to wrap the section of code you've changed with the following comment tags :
 
 ```
 /**
-* #cf7-tng-start
-* Describe quickly in English the changes made
-*/
+ * #cf7-tng-start
+ * Describe quickly in English the changes made
+ */
 
 // code
 
@@ -133,14 +92,14 @@ To make it easier to merge changes with new updates, we document our changes in 
 
 If you ever want to remove a whole chunk of code (ie. if statement, a whole function, etc.), comment the original code and in the `#cf7-tng-start` comment tag, quickly explain *why* this has been removed, especially if it has to do with web accessibility.
 
-For example, this could look like this (this example is not taken from the original plugin by the way) :
+For example, this could look like this (this example is not taken from the original plugin by the way):
 
 ```
 /**
-* #cf7-tng-start
-* Remove role="button" : if button is needed
-* use <button> tags instead of <a> tags.
-*/
+ * #cf7-tng-start
+ * Remove role="button" : if button is needed
+ * use <button> tags instead of <a> tags.
+ */
 
 // if (link) {
 //    link.setAttribute('role', 'button')
@@ -148,3 +107,16 @@ For example, this could look like this (this example is not taken from the origi
 
 /* #cf7-tng-end */
 ```
+
+## How to update CF7 Tanguru plugin from Contact Form 7
+
+Follow these instructions to update the CF7 Tanaguru plugin from the official Contact Form 7:
+
+1. Check that the `master` branch is up to date on your computer;
+1. Create a new branch, from the `master` branch, naming `update_[version]` replacing “version” by the new version number of Contact Form 7. Example : `update_5-1-2`;
+1. Put the new version from the official Contact Form 7 on this branch;
+1. Before committing this, compare what you are about to commit and report all CF7 Tanaguru modifications on the new version of Contact Form 7;
+1. When everything seems to be OK, commit and push your modifications on your branch `update_[version]`;
+1. Go on Github and make a Pull Request to merge your branch `update_[version]` on `master`. Read your Pull Request carefully. If you can, request a review from a colleague to benefit from a fresh eyes looking;
+1. Approve the Pull Request;
+1. Make a Github Release.
