@@ -102,7 +102,7 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 		? (string) $_POST['_wpcf7_quiz_answer_' . $name]
 		: '';
 
-	if ( $answer_hash !== $expected_hash ) {
+	if ( ! hash_equals( $expected_hash, $answer_hash ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'quiz_answer_not_correct' ) );
 	}
 
@@ -112,8 +112,8 @@ function wpcf7_quiz_validation_filter( $result, $tag ) {
 
 /* Ajax echo filter */
 
-add_filter( 'wpcf7_ajax_onload', 'wpcf7_quiz_ajax_refill', 10, 1 );
-add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_quiz_ajax_refill', 10, 1 );
+add_filter( 'wpcf7_refill_response', 'wpcf7_quiz_ajax_refill', 10, 1 );
+add_filter( 'wpcf7_feedback_response', 'wpcf7_quiz_ajax_refill', 10, 1 );
 
 function wpcf7_quiz_ajax_refill( $items ) {
 	if ( ! is_array( $items ) ) {
@@ -157,6 +157,24 @@ function wpcf7_quiz_ajax_refill( $items ) {
 	}
 
 	return $items;
+}
+
+
+/* Mail-tag replacement */
+
+add_filter( 'wpcf7_mail_tag_replaced_quiz', 'wpcf7_quiz_mail_tag', 10, 4 );
+
+function wpcf7_quiz_mail_tag( $replaced, $submitted, $html, $mail_tag ) {
+	$field_name = $mail_tag->field_name();
+	$submitted = isset( $_POST[$field_name] ) ? $_POST[$field_name] : '';
+	$replaced = $submitted;
+
+	if ( $html ) {
+		$replaced = esc_html( $replaced );
+		$replaced = wptexturize( $replaced );
+	}
+
+	return $replaced;
 }
 
 
