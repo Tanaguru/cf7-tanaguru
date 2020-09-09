@@ -269,9 +269,14 @@
 				} );
 			}
 
-
+			/**
+			 * #cf7-tng-start
+			 *
+			 * Put the message into a HTML paragraph
+			 */
 			$( '.wpcf7-response-output', $form )
-				.html( '' ).append( data.message ).slideDown( 'fast' );
+				.html( '' ).append( '<p>' + data.message + '</p>' ).slideDown( 'fast' );
+			/* #cf7-tng-end */
 
 			/**
 			 * #cf7-tng-start

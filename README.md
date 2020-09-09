@@ -37,7 +37,8 @@ The main message should be at the top of the form to be logical.
 1. Remove the `role="alert"` and `aria-hidden="true"` attribute from the main message container that is visible;
 1. Add a `tabindex="-1"`attribute on the main message container;
 1. Remove the visually hidden message (the one with links inside);
-1. On submit, move focus on the main message (error or success).
+1. On submit, move focus on the main message (error or success);
+1. Put the main message into a HTML paragraph (`<p>`).
 
 ### 2. Attach individual error message to its field
 
