@@ -334,9 +334,13 @@ class WPCF7_ContactForm {
 			$lang_tag = $matches[1];
 		}
 
+		/**
+		 * #cf7-tng-start
+		 * Comment `role="form"` attribute because we must not nest forms. There is already a <form> element
+		 */
 		$html = sprintf( '<div %s>',
 			wpcf7_format_atts( array(
-				'role' => 'form',
+				// 'role' => 'form',
 				'class' => 'wpcf7',
 				'id' => $this->unit_tag(),
 				( get_option( 'html_type' ) == 'text/html' ) ? 'lang' : 'xml:lang'
@@ -344,6 +348,7 @@ class WPCF7_ContactForm {
 				'dir' => wpcf7_is_rtl( $this->locale ) ? 'rtl' : 'ltr',
 			) )
 		);
+		/* #cf7-tng-end */
 
 		/**
 		 * #cf7-tng-start

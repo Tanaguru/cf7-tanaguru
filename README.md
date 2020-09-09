@@ -64,6 +64,12 @@ The acceptance checkbox (for GDPR) is a dedicated field in the contact form admi
 
 **What we have done:** add a `for` attribute on the acceptance `<label>` only if the ID is filled in the contact form administration. Its value is the ID of the field, of course.
 
+### 5. Remove the `role="form"` attribute of the `<form>` container
+
+The `<form>` element is inside a `<div role="form">` container. Forms must not be nested and there is no need to have a `role="form"` attribute on that `div`.
+
+**What we have done:** remove the `role="form"` from the `<div>` container the `<form>`.
+
 ## How to contribute?
 
 We try to stay close to the evolving changes of the original plugin. Therefore we have to manually update this repository.
