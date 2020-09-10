@@ -37,7 +37,8 @@ The main message should be at the top of the form to be logical.
 1. Remove the `role="alert"` and `aria-hidden="true"` attribute from the main message container that is visible;
 1. Add a `tabindex="-1"`attribute on the main message container;
 1. Remove the visually hidden message (the one with links inside);
-1. On submit, move focus on the main message (error or success).
+1. On submit, move focus on the main message (error or success);
+1. Put the main message into a HTML paragraph (`<p>`).
 
 ### 2. Attach individual error message to its field
 
@@ -63,6 +64,12 @@ A `size` attribute is used on form fields but it's not compliant with accessibil
 The acceptance checkbox (for GDPR) is a dedicated field in the contact form administration. In the code, you can't access to the `<label>` element so you can't attached the label to its field properly.
 
 **What we have done:** add a `for` attribute on the acceptance `<label>` only if the ID is filled in the contact form administration. Its value is the ID of the field, of course.
+
+### 5. Remove the `role="form"` attribute of the `<form>` container
+
+The `<form>` element is inside a `<div role="form">` container. Forms must not be nested and there is no need to have a `role="form"` attribute on that `div`.
+
+**What we have done:** remove the `role="form"` from the `<div>` container the `<form>`.
 
 ## How to contribute?
 
