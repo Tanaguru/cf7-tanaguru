@@ -31,7 +31,9 @@ Both main error message or success message have a `role="alert"` attribute but t
 
 The main message should be at the top of the form to be logical.
 
-**What we have done:** we decided to move focus on the main message (that must be at the top of the form) in order to be sure that the message will be read by screen readers and so, users are at the right place to go again inside the form to fix their errors.
+#### What we have done
+
+We decided to move focus on the main message (that must be at the top of the form) in order to be sure that the message will be read by screen readers and so, users are at the right place to go again inside the form to fix their errors.
 
 1. Move the `[response]` short code in our form administration at the top of the form (before writing fields) (**don't forget to do it as a developer**);
 1. Remove the `role="alert"` and `aria-hidden="true"` attribute from the main message container that is visible;
@@ -46,7 +48,7 @@ In the original Contact Form 7, when there are errors on submitting the form, ea
 
 Moreover, these individual messages are visually displayed and inaccessible to screen readers: that's a problem because people using screen readers are not all blind people.
 
-**What we have done:**
+#### What we have done
 
 1. Remove the `role="alert"` and `aria-hidden="true"` attributes from these messages;
 1. Add a unique ID on each individual message;
@@ -57,27 +59,36 @@ Moreover, these individual messages are visually displayed and inaccessible to s
 
 A `size` attribute is used on form fields but it's not compliant with accessibility rules. CSS must be used instead in order to fix field size.
 
-**What we have done:** remove the `size` attribute from fields.
+#### What we have done
+
+Remove the `size` attribute from fields.
 
 ### 4. Add a `for` attribute on the `<label>` of the acceptance checkbox
 
 The acceptance checkbox (for GDPR) is a dedicated field in the contact form administration. In the code, you can't access to the `<label>` element so you can't attached the label to its field properly.
 
-**What we have done:** add a `for` attribute on the acceptance `<label>` only if the ID is filled in the contact form administration. Its value is the ID of the field, of course.
+#### What we have done
+
+Add a `for` attribute on the acceptance `<label>` only if the ID is filled in the contact form administration. Its value is the ID of the field, of course.
 
 ### 5. Remove the `role="form"` attribute of the `<form>` container
 
 The `<form>` element is inside a `<div role="form">` container. Forms must not be nested and there is no need to have a `role="form"` attribute on that `div`.
 
-**What we have done:** remove the `role="form"` from the `<div>` container the `<form>`.
+#### What we have done
 
-## 6. Error message on `input[type="file"]` field and the Firefox + NVDA bug
+Remove the `role="form"` from the `<div>` container the `<form>`.
+
+### 6. Error message on `input[type="file"]` field and the Firefox + NVDA bug
 
 On Firefox, the `aria-describedby` attribute doesn't work with the NVDA screen reader: it is not read.
 
 So, the fix we've done to link error messages to their field was not working for this kind of field with Firefox + NVDA.
 
-**What we have done:** use `aria-labelledby` instead of `aria-describedby` attribute to link the error message for `input[type="file"]` field.
+#### What we have done
+
+Use `aria-labelledby` instead of `aria-describedby` attribute to link the error message for `input[type="file"]` field.
+
 This was a little bit complicated because we needed to link the `<label>` of the field in the `aria-labelledby` attribute too. Actually, the `aria-labelledby` attribute is stronger than `<label>` and overrides it. So, to have the field label and its error message read by the screen reader, both must be linked into the `aria-labelledby` attribute.
 
 1. If the file field has **one** associated label (`for` / `id`) and has no `aria-labelledby` attribute:
@@ -86,7 +97,7 @@ This was a little bit complicated because we needed to link the `<label>` of the
 2. If this is a file field, don't add an `aria-describedby` attribute on the field to link the error message but add the ID of the error message in the `aria-labelledby` attribute.
 3. If this is a file field, remove only the ID of the error message from the `aria-labelledby` attribute when there is no error anymore.
 
-**What you need to know in order to benefit from the fix:**
+#### What you need to know in order to benefit from the fix
 
 1. Use only one `<label>` associated to the field (a field must not have several `<label>`);
 2. The `aria-labelledby` attribute is generated only if it is not present. Be careful if you're already using it: it must contain the ID of its associated `<label>`.
