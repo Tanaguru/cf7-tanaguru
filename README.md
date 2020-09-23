@@ -71,7 +71,7 @@ The `<form>` element is inside a `<div role="form">` container. Forms must not b
 
 **What we have done:** remove the `role="form"` from the `<div>` container the `<form>`.
 
-## 6. `input[type="file"]` field error message and Firefox + NVDA bug
+## 6. Error message on `input[type="file"]` field and the Firefox + NVDA bug
 
 On Firefox, the `aria-describedby` attribute doesn't work with the NVDA screen reader: it is not read.
 
@@ -80,7 +80,7 @@ So, the fix we've done to link error messages to their field was not working for
 **What we have done:** use `aria-labelledby` instead of `aria-describedby` attribute to link the error message for `input[type="file"]` field.
 This was a little bit complicated because we needed to link the `<label>` of the field in the `aria-labelledby` attribute too. Actually, the `aria-labelledby` attribute is stronger than `<label>` and overrides it. So, to have the field label and its error message read by the screen reader, both must be linked into the `aria-labelledby` attribute.
 
-1. If the file field has **one** associated (`for` / `id`) label and has no `aria-labelledby` attribute:
+1. If the file field has **one** associated label (`for` / `id`) and has no `aria-labelledby` attribute:
     1. If the `<label>` has no `id`, add a unique ID on the `<label>` associated to the field;
     2. Add an `aria-labelledby` attribute on the field where its value is the ID of its label.
 2. If this is a file field, don't add an `aria-describedby` attribute on the field to link the error message but add the ID of the error message in the `aria-labelledby` attribute.
