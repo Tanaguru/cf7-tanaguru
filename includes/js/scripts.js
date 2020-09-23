@@ -47,6 +47,34 @@
 
 		wpcf7.setStatus( $form, 'init' );
 
+		/**
+		 * #cf7-tng-start
+		 *
+		 * For `input[type="file"]` fields, add a unique ID on the `<label>` and link the `<label>` to the field thanks to an `aria-labelledby` attribute because of a bug with Firefox and the NVDA Screen reader.
+		 */
+		$form.find( '.wpcf7-file' ).each( function( i, field ) {
+			if( !$(field).is( '[aria-labelledby]' ) && $(field).is( '[id]' ) ) {
+				var label = $( 'label[for="' + $(field).attr( 'id' ) + '"]' );
+
+				/* If there is only one <label> associated to the field (and it must have only one!) */
+				if( label.length == 1 ) {
+
+					/* If there is no ID on <label>, add it */
+					var ID = label.attr('id');
+					if( !ID ) {
+						ID = 'cf7-tng-label-' + Math.random().toString(36).substr(2, 9);
+
+						label.attr( 'id', ID );
+					}
+
+					/* Add the aria-labelledby attribute on the field. Value = ID of the <label>. */
+					$(field).attr( 'aria-labelledby', label.attr( 'id' ) );
+				}
+			}
+		});
+		/** #cf7-tng-end */
+
+
 		$form.submit( function( event ) {
 			if ( ! wpcf7.supportHtml5.placeholder ) {
 				$( '[placeholder].placeheld', $form ).each( function( i, n ) {
@@ -207,17 +235,31 @@
 					$.each( data.invalid_fields, function( i, n ) {
 						$( n.into, $form ).each( function() {
 							wpcf7.notValidTip( this, n.message );
+							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
+							$( '[aria-invalid]', this ).attr( 'aria-invalid', 'true' );
 
 							/**
 							 * #cf7-tng-start
-							 * Retrieve unique ID from error message and add aria-describedby to its field
+							 *
+							 * - Retrieve unique ID from error message and add `aria-describedby` to its field
+							 * - For `input[type="file"]`, handle it with `aria-labelledby` instead of `aria-describedby` because of a Firefox + NVDA bug
 							 */
 							var messageID = $( 'span.wpcf7-not-valid-tip', this ).attr('id');
+							var cf7_tng_field = $( '.wpcf7-form-control', this );
 
-							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
-							$( '.wpcf7-form-control', this ).attr( 'aria-describedby', messageID );
-							$( '[aria-invalid]', this ).attr( 'aria-invalid', 'true' );
-							/* #cf7-tng-end */
+							/* If it's a file field */
+							if( cf7_tng_field.is( '[type="file"]' ) ) {
+
+								cf7_tng_field.attr( 'aria-labelledby', cf7_tng_field.attr( 'aria-labelledby' ) + ' ' + messageID );
+
+							/* If it's all other fields */
+							} else {
+
+								cf7_tng_field.attr( 'aria-describedby', messageID );
+
+							}
+
+							/** #cf7-tng-end */
 						} );
 					} );
 
@@ -276,7 +318,7 @@
 			 */
 			$( '.wpcf7-response-output', $form )
 				.html( '' ).append( '<p>' + data.message + '</p>' ).slideDown( 'fast' );
-			/* #cf7-tng-end */
+			/** #cf7-tng-end */
 
 			/**
 			 * #cf7-tng-start
@@ -307,7 +349,7 @@
 			// 	$response.focus();
 			// } );
 
-			/* #cf7-tng-end */
+			/** #cf7-tng-end */
 
 			if ( data.posted_data_hash ) {
 				$form.find( 'input[name="_wpcf7_posted_data_hash"]' ).first()
@@ -332,7 +374,7 @@
 			 * Move focus on confirmation message after submit
 			 */
 			$( '.wpcf7-response-output', $form ).focus();
-			/* #cf7-tng-end */
+			/** #cf7-tng-end */
 		} ).fail( function( xhr, status, error ) {
 			var $e = $( '<div class="ajax-error"></div>' ).text( error.message );
 			$form.after( $e );
@@ -342,7 +384,7 @@
 			 * Move focus on error message after submit
 			 */
 			$( '.wpcf7-response-output', $form ).focus();
-			/* #cf7-tng-end */
+			/** #cf7-tng-end */
 		} );
 	};
 
@@ -443,11 +485,12 @@
 
 		/**
 		 * #cf7-tng-start
-		 * Comment `role="alert" aria-hidden="true"` from the span element.
-		 * Created errorID for random unique ID, and attach errorID to the error message.
+		 *
+		 * - Comment `role="alert" aria-hidden="true"` from the span element.
+		 * - Create errorID for random unique ID, and attach errorID to the error message.
 		 */
 
-		var errorID = 'cf7_tng_' + Math.random().toString(36).substr(2, 9);
+		var errorID = 'cf7-tng-error-' + Math.random().toString(36).substr(2, 9);
 
 		$( '<span></span>' ).attr( {
 			'class': 'wpcf7-not-valid-tip',
@@ -456,7 +499,7 @@
 			'id': errorID,
 		} ).text( message ).appendTo( $target );
 
-		/* #cf7-tng-end */
+		/** #cf7-tng-end */
 
 		if ( $target.is( '.use-floating-validation-tip *' ) ) {
 			var fadeOut = function( target ) {
@@ -536,13 +579,14 @@
 
 		/**
 		 * #cf7-tng-start
+		 *
 		 * Comment line because .screen-reader-repsonse does not exist anymore
 		 * See contact-form.php, function screen_reader_response
 		 */
 
 		// $form.siblings( '.screen-reader-response' ).html( '' );
 
-		/* #cf7-tng-end */
+		/** #cf7-tng-end */
 
 		$( '.wpcf7-not-valid-tip', $form ).remove();
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
@@ -550,10 +594,38 @@
 
 		/**
 		 * #cf7-tng-start
-		 * Remove aria-describedby if not needed
+		 * - Remove aria-describedby if not needed
+		 * - Remove the error message ID from the `aria-labelledby` attribute for `input[type="file"]`
 		 */
-		$( '.wpcf7-form-control', $form ).removeAttr( 'aria-describedby' );
-		/* #cf7-tng-end */
+		var cf7_tng_fields_ok = $( '.wpcf7-form-control', $form );
+
+		/* Break the fields down to apply different behaviours */
+		$.each( cf7_tng_fields_ok, function( i, field ) {
+
+			/* If it's an `input[type="file"]` */
+			if( $(field).is( '[type="file"]' ) ) {
+
+				/* Get the error message ID */
+				var IDs = $(field).attr( 'aria-labelledby' );
+				IDs = IDs.split( ' ' ); /* Break the IDs down */
+
+				/* Get only the IDs that are not the error message ID */
+				IDs = IDs.filter( function( ID ){
+					return !/^cf7-tng-error-*/.test( ID );
+				});
+
+				/* Apply the `aria-labelledby` values without the error message ID */
+				$(field).attr( 'aria-labelledby', IDs.join( ' ' ) );
+
+			/* If it is all other fields */
+			} else {
+
+				$(field).removeAttr( 'aria-describedby' );
+
+			}
+
+		});
+		/** #cf7-tng-end */
 
 		$( '.wpcf7-response-output', $form ).hide().empty();
 	};
